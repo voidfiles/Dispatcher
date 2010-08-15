@@ -18,16 +18,16 @@ The point is to attach the minimum of events to the dom, and support late regist
     * the callback
     * the callback scope
     * wether or not you want to prevent default, boolean
-    
+
+for example 
 
     my_dispatcher.subscribe(
         "click",  // Event Type
         "red",    // Class Name
-        function(target){ 
-            console.log("Is Red"); 
+        function(target){
+            console.log("Is Red");
             return false;
-        
-        }, // Callback 
+        }, // Callback
         scopeObject,
         true
     );
