@@ -1,6 +1,6 @@
 # A class-keyed function dispatcher.
 
-The point is to attach the minimum of events to the dom, and support late registration of code modules.
+The point is to attach the minimum number of events to the DOM, and support late registration of code modules. It allows you to create a behavior layer that can be a composition of modules, instead of having to define all the behavior upfront. 
 
 ## How To Use
 
