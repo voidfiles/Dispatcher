@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <title>Dispatcher Test Page</tile>
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset-fonts-grids/reset-fonts-grids.css">
+        <style type="text/css" media="screen">
+            body {
+                font-family: Myriad Pro, Helvetica, Arial;
+                font-size:138.5%;
+            }
+            h1 {
+                font-size:197%;
+            }
+            .container {
+                width:75%;
+                margin:2em auto;
+                background-color:#EEE;
+                border:1px solid #CCC;
+                
+            }
+        </style>
+    </head>
+    <body>
+        
+        <h1>Demo / Test page for Dispatcher</h1>
+        <div id="main-cont" class="container">
+            <ul>
+                <li class="blue">Click Me: Console is Blue</li>
+                <li class="red">Click Me: Console is Red</li>
+                <li class="blue red">Click Me: Console is Blue, Red</li>
+                <li class="red blue"><a class="no-link" href="http://google.com">Click Me: Console is No Link, Red, Blue</a></li>
+                <li class="same_object">Two of the same functions subscribe to this</li>
+            </ul>
+        </div>
+    <script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js" ></script>
+    <!-- Event source file -->
+    <script src="http://yui.yahooapis.com/2.8.0r4/build/event/event-min.js" ></script>
+    <script src="http://yui.yahooapis.com/2.8.0r4/build/dom/dom-min.js"></script>
+    <script src="http://yui.yahooapis.com/2.8.0r4/build/dom/dom-min.js"></script>
+    
+    <script src="./dispatcher.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        var my_dispatcher = YAHOO.lang.merge({},Dispatcher),  // Creates a new dispatcher
+            main_dom = YAHOO.util.Dom.get("main-cont"),
+            scopeObject = {
+                blah : "Sweet Sweet"
+            },
+            handle = YAHOO.util.Event.on(main_dom , "click",my_dispatcher.getHandler("click"));
+        
+
+        
+        my_dispatcher.subscribe(
+            "click",  // Event Type
+            "red",    // Class Name
+            function(target){ 
+                console.log("Is Red"); 
+                return false;
+                
+            }, // Callback 
+            scopeObject,
+            TRUE
+        );
+        
+        my_dispatcher.subscribe(
+            "click",  // Event Type
+            "blue",    // Class Name
+            function(target){ 
+                console.log("Is Blue"); 
+                return false;
+                
+            }, // Callback 
+            scopeObject,
+            TRUE
+        );
+        
+        
+        my_dispatcher.subscribe(
+            "click",  // Event Type
+            "no-link",    // Class Name
+            function(target){ 
+                console.log("Won't be going there");        
+            }, // Callback 
+            scopeObject,
+            TRUE
+        );
+
+        // Demonstrate how you can subscribe the same object, with different instantiates to the same class name.
+        // Settling a debate amongst co-workers
+        
+        function Settings(name){
+            this.name = name;
+        };
+        
+        Settings.prototype.retName = function(){
+            return this.name;
+        };
+        
+        object1 = new Settings("Object1");
+        object2 = new Settings("Object2");
+        
+        
+        my_dispatcher.subscribe(
+            "click",  // Event Type
+            "same_object",    // Class Name
+            function(){
+                console.log(object1.retName());
+            }, // Callback 
+            object1,
+            TRUE
+        );
+
+        my_dispatcher.subscribe(
+            "click",  // Event Type
+            "same_object",    // Class Name
+            function(){
+                console.log(object2.retName());
+            }, // Callback 
+            object2,
+            TRUE
+        );
+        
+        
+    </script>
+    </body>
+</html>
+
