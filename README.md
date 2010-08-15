@@ -32,4 +32,8 @@ for example
         true
     );
     
+## For an functional example 
+
+checkout the file repo, and open dispatcher.html, in a browser with a console
+    
     
