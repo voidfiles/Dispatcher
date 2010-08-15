@@ -1,6 +1,6 @@
 (function(){
-    var TRUE = true,
-        FALSE = false;
+    var TRUE = true, // Helps with minification 
+        FALSE = false; // Helps with minification 
 
 
     if(window["Dispatcher"]){
